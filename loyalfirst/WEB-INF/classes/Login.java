@@ -28,15 +28,15 @@ public class Login extends HttpServlet {
             ResultSet resultSet = statement.executeQuery();
             String res = "";
             while (resultSet.next()){
-                res+=resultSet.getObject(1);
+                res+=resultSet.getInt(1);
 
             }
             connection.close();
             if (res.length() == 0){
-                printWriter.println("wrong");
+                printWriter.println("No");
             }
             else{
-                printWriter.println("Welcome back "+res);
+                printWriter.println("Yes:"+res);
             }
 
 
