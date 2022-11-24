@@ -24,6 +24,7 @@ public class MainActivity2 extends AppCompatActivity {
     private TextView rewardPointText;
     private Button allTransBtn;
     private Button transDetailBtn;
+    private Button redemptionDetailBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MainActivity2 extends AppCompatActivity {
         rewardPointText = findViewById(R.id.reward_points);
         allTransBtn = findViewById(R.id.all_trans_btn);
         transDetailBtn = findViewById(R.id.trans_detail_btn);
+        redemptionDetailBtn = findViewById(R.id.redemption_detail_btn);
 
         Intent intent = getIntent();
         cid = intent.getStringExtra("cidExtra");
@@ -48,6 +50,13 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 navigateToTransDetailPage();
+            }
+        });
+
+        redemptionDetailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navigateToRedemptionDetailPage();
             }
         });
 
@@ -77,6 +86,12 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void navigateToTransDetailPage(){
         Intent intent = new Intent(MainActivity2.this,MainActivity4.class);
+        intent.putExtra("cidExtra",cid);
+        startActivity(intent);
+    }
+
+    private void navigateToRedemptionDetailPage(){
+        Intent intent = new Intent(MainActivity2.this,MainActivity5.class);
         intent.putExtra("cidExtra",cid);
         startActivity(intent);
     }
