@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,7 +20,12 @@ import java.util.ArrayList;
 public class MainActivity5 extends AppCompatActivity {
 
     private String cid;
+    private String selectedPrizeId;
     private Spinner spinner;
+
+    private TextView displayDescTv;
+    private TextView displayPointNeedTv;
+    private TextView displayDateExchgTv;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +33,25 @@ public class MainActivity5 extends AppCompatActivity {
         setContentView(R.layout.activity_main5);
 
         cid = getIntent().getStringExtra("cidExtra");
+        selectedPrizeId = "";
+
+        displayDescTv = findViewById(R.id.display_desc_tv);
+        displayPointNeedTv = findViewById(R.id.point_need_tv);
+        displayDateExchgTv = findViewById(R.id.display_date_exch_tv);
 
         spinner = findViewById(R.id.prize_spinner);
         loadPrizeIdsIntoSpinner();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                selectedPrizeId = (String)adapterView.getSelectedItem();
+                displayRedemptionHist();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                selectedPrizeId = (String)adapterView.getItemAtPosition(0);
+                displayRedemptionHist();
             }
         });
     }
@@ -59,6 +72,32 @@ public class MainActivity5 extends AppCompatActivity {
                 newArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 spinner.setAdapter(newArrayAdapter);
+            }
+        }, null);
+        requestQueue.add(request);
+    }
+
+    private void displayRedemptionHist(){
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity5.this);
+        String url = "http://10.0.2.2:8080/loyaltyfirst/RedemptionDetails.jsp?prizeid="+selectedPrizeId+"&cid="+cid;
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                String prizeDesc = "";
+                String pointNeed = "";
+                String redeemDateAndExchCenters = "";
+                String[] result = s.trim().split("#");
+                for(int i = 0; i < result.length; i++){
+                    String[] redeemInfo = result[i].split(",");
+                    prizeDesc = redeemInfo[0];
+                    pointNeed = redeemInfo[1];
+                    redeemDateAndExchCenters+=redeemInfo[2]+"    "+redeemInfo[3]+"\n";
+
+                }
+
+                displayDescTv.setText(prizeDesc);
+                displayPointNeedTv.setText(pointNeed);
+                displayDateExchgTv.setText(redeemDateAndExchCenters);
             }
         }, null);
         requestQueue.add(request);
