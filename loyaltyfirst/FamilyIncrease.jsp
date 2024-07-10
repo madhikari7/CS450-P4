@@ -7,7 +7,7 @@
         String npoints = request.getParameter("npoints");
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
         String url="jdbc:oracle:thin:@artemis.vsnet.gmu.edu:1521/vse18c.vsnet.gmu.edu";
-        Connection conn=DriverManager.getConnection(url,"nhuynh26","ygruwory");      
+        Connection conn=DriverManager.getConnection(url,"madhikar","fartogny");      
         PreparedStatement stmt = conn.prepareStatement("SELECT pa.cid, pa.num_of_points FROM Point_Accounts pa WHERE pa.family_id = ? AND pa.family_id = (SELECT family_id from Customers where cid = ?) AND pa.cid != ?");
 
         stmt.setObject(1, fid);

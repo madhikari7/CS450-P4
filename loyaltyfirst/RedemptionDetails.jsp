@@ -5,7 +5,7 @@
 	String cid=request.getParameter("cid");
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
         String url="jdbc:oracle:thin:@artemis.vsnet.gmu.edu:1521/vse18c.vsnet.gmu.edu";
-        Connection conn=DriverManager.getConnection(url,"nhuynh26","ygruwory");
+        Connection conn=DriverManager.getConnection(url,"madhikar","fartogny");
 	PreparedStatement stmt = conn.prepareStatement("SELECT prize.p_description,prize.points_needed,rh.r_date,ec.center_name FROM Customers c,Redemption_History rh,Prizes prize,ExchgCenters ec WHERE ec.center_id = rh.center_id AND prize.prize_id = rh.prize_id AND prize.prize_id = ? AND c.cid = rh.cid AND c.cid = ? ");
 	stmt.setObject(1,prizeId);
 	stmt.setObject(2,cid);

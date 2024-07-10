@@ -16,7 +16,7 @@ public class Login extends HttpServlet {
             PrintWriter printWriter = resp.getWriter();
             DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
             String url = "jdbc:oracle:thin:@artemis.vsnet.gmu.edu:1521/vse18c.vsnet.gmu.edu";
-            Connection connection = DriverManager.getConnection(url,"nhuynh26","ygruwory");
+            Connection connection = DriverManager.getConnection(url,"madhikar","fartogny");
 
             PreparedStatement statement = connection.prepareStatement("Select cid FROM Login WHERE username = ? and passwd = ?");
             statement.setObject(1,user);

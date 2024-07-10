@@ -1,0 +1,8 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.project.sourcePaths": [],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "e:\\apache-tomcat-10.0.23\\apache-tomcat-10.0.23\\lib\\servlet-api.jar"
+    ]
+}
